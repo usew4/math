@@ -1,0 +1,49 @@
+# E题问题二：ALMT共享融合特征，联合预测情感分数与三分类。
+base:
+  project_name: q2_almt_multitask
+  seed: 42
+  bert_lr: 0.00002
+  other_lr: 0.0001
+  weight_decay: 0.01
+  batch_size: 4
+  accumulation_steps: 4
+  n_epochs: 40
+  patience: 8
+  amp: true
+  num_workers: 0
+
+dataset:
+  dataPath: 'D:/第二十三届中国研究生数学建模竞赛 - 中文题目/中文题目/E题/E题数据/E题数据/附件2-数据集特征文件/aligned_50.pkl'
+
+task:
+  neutral_threshold: 0.2
+  classification_loss_weight: 0.5
+
+model:
+  bert_pretrained: 'C:/Users/wwh/Documents/ChatGPT/数学建模/e_problem1/bert_model'
+  output_dim: 1
+  l_input_dim: 768
+  a_input_dim: 74
+  v_input_dim: 35
+  l_proj_dst_dim: 128
+  a_proj_dst_dim: 128
+  v_proj_dst_dim: 128
+  token_len: 8
+  token_dim: 128
+  l_input_length: 50
+  a_input_length: 50
+  v_input_length: 50
+  proj_input_dim: 128
+  proj_depth: 1
+  proj_heads: 8
+  proj_mlp_dim: 128
+  token_length: 8
+  l_enc_heads: 8
+  l_enc_mlp_dim: 128
+  AHL_depth: 3
+  ahl_heads: 8
+  ahl_dim_head: 16
+  ahl_droup: 0.0
+  fusion_heads: 8
+  fusion_mlp_dim: 128
+  fusion_layer_depth: 4

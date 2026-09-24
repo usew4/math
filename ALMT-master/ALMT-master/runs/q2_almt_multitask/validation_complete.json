@@ -1,0 +1,121 @@
+{
+  "best_score_epoch": 23,
+  "best_class_epoch": 22,
+  "best_score_checkpoint_valid": {
+    "score_rule": {
+      "accuracy": 0.6401098901098901,
+      "macro_f1": 0.6162578162578162,
+      "mae": 0.5497868061065674,
+      "pearson": 0.6776851707069373,
+      "recall": {
+        "Negative": 0.6116504854368932,
+        "Neutral": 0.47282608695652173,
+        "Positive": 0.7485207100591716
+      },
+      "confusion": [
+        [
+          126,
+          53,
+          27
+        ],
+        [
+          22,
+          87,
+          75
+        ],
+        [
+          24,
+          61,
+          253
+        ]
+      ],
+      "threshold": 0.2,
+      "oracle_threshold_accuracy": 0.9986263736263736
+    },
+    "class_head": {
+      "accuracy": 0.6401098901098901,
+      "macro_f1": 0.6163897933751407,
+      "recall": {
+        "Negative": 0.616504854368932,
+        "Neutral": 0.47282608695652173,
+        "Positive": 0.7455621301775148
+      },
+      "confusion": [
+        [
+          127,
+          53,
+          26
+        ],
+        [
+          22,
+          87,
+          75
+        ],
+        [
+          26,
+          60,
+          252
+        ]
+      ]
+    }
+  },
+  "best_class_checkpoint_valid": {
+    "score_rule": {
+      "accuracy": 0.6346153846153846,
+      "macro_f1": 0.6148631213738972,
+      "mae": 0.552562415599823,
+      "pearson": 0.6705913244573559,
+      "recall": {
+        "Negative": 0.5825242718446602,
+        "Neutral": 0.5163043478260869,
+        "Positive": 0.7307692307692307
+      },
+      "confusion": [
+        [
+          120,
+          57,
+          29
+        ],
+        [
+          20,
+          95,
+          69
+        ],
+        [
+          22,
+          69,
+          247
+        ]
+      ],
+      "threshold": 0.2,
+      "oracle_threshold_accuracy": 0.9986263736263736
+    },
+    "class_head": {
+      "accuracy": 0.6483516483516484,
+      "macro_f1": 0.6275360992988345,
+      "recall": {
+        "Negative": 0.616504854368932,
+        "Neutral": 0.5108695652173914,
+        "Positive": 0.742603550295858
+      },
+      "confusion": [
+        [
+          127,
+          49,
+          30
+        ],
+        [
+          21,
+          94,
+          69
+        ],
+        [
+          26,
+          61,
+          251
+        ]
+      ]
+    }
+  },
+  "test_evaluated": false
+}

@@ -1,0 +1,62 @@
+{
+  "checkpoint": "C:\\Users\\wwh\\Desktop\\math\\ALMT-master\\ALMT-master\\runs\\q2_text_anchor_reliability\\best.pt",
+  "checkpoint_epoch": 10,
+  "test": {
+    "class_head": {
+      "accuracy": 0.687757909215956,
+      "macro_f1": 0.6580828257405205,
+      "recall": {
+        "Negative": 0.714975845410628,
+        "Neutral": 0.5316455696202531,
+        "Positive": 0.7403314917127072
+      },
+      "confusion": [
+        [
+          148,
+          33,
+          26
+        ],
+        [
+          29,
+          84,
+          45
+        ],
+        [
+          34,
+          60,
+          268
+        ]
+      ]
+    },
+    "score_rule": {
+      "accuracy": 0.6740027510316369,
+      "macro_f1": 0.5975848318813354,
+      "mae": 0.6323714852333069,
+      "pearson": 0.7023773958827512,
+      "recall": {
+        "Negative": 0.7391304347826086,
+        "Neutral": 0.2468354430379747,
+        "Positive": 0.8232044198895028
+      },
+      "confusion": [
+        [
+          153,
+          21,
+          33
+        ],
+        [
+          40,
+          39,
+          79
+        ],
+        [
+          31,
+          33,
+          298
+        ]
+      ],
+      "threshold": 0.2,
+      "oracle_threshold_accuracy": 1.0
+    }
+  }
+}

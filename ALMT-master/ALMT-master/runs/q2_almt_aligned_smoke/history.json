@@ -1,0 +1,32 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 1.26513671875,
+    "valid": {
+      "accuracy": 0.375,
+      "macro_f1": 0.1818181818181818,
+      "recall": {
+        "Negative": 0.0,
+        "Neutral": 0.0,
+        "Positive": 1.0
+      },
+      "confusion": [
+        [
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          3
+        ]
+      ]
+    }
+  }
+]

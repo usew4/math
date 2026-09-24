@@ -1,0 +1,68 @@
+[
+  {
+    "epoch": 1,
+    "train": {
+      "mse": 3.4566805362701416,
+      "ce": 1.481119155883789,
+      "combined": 4.197239875793457
+    },
+    "valid": {
+      "score_rule": {
+        "accuracy": 0.5,
+        "macro_f1": 0.2222222222222222,
+        "mae": 0.8434244394302368,
+        "pearson": 0.7959186008063851,
+        "recall": {
+          "Negative": 0.0,
+          "Neutral": 0.0,
+          "Positive": 1.0
+        },
+        "confusion": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            2
+          ]
+        ],
+        "threshold": 0.2,
+        "oracle_threshold_accuracy": 1.0
+      },
+      "class_head": {
+        "accuracy": 0.5,
+        "macro_f1": 0.2222222222222222,
+        "recall": {
+          "Negative": 0.0,
+          "Neutral": 0.0,
+          "Positive": 1.0
+        },
+        "confusion": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            2
+          ]
+        ]
+      }
+    }
+  }
+]

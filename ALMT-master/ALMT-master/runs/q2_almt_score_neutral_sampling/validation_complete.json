@@ -1,0 +1,34 @@
+{
+  "best_epoch": 12,
+  "best_valid": {
+    "accuracy": 0.6346153846153846,
+    "macro_f1": 0.6107512396482955,
+    "mae": 0.5576716065406799,
+    "pearson": 0.6886540793532684,
+    "recall": {
+      "Negative": 0.6601941747572816,
+      "Neutral": 0.43478260869565216,
+      "Positive": 0.727810650887574
+    },
+    "confusion": [
+      [
+        136,
+        36,
+        34
+      ],
+      [
+        29,
+        80,
+        75
+      ],
+      [
+        26,
+        66,
+        246
+      ]
+    ],
+    "threshold": 0.2,
+    "oracle_threshold_accuracy": 0.9986263736263736
+  },
+  "test_evaluated": false
+}

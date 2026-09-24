@@ -1,0 +1,6 @@
+﻿feature_1,feature_2,valid_aligned_bins,spearman_rho
+text_compound,audio_log_rms,3405,-0.0194
+text_compound,audio_pitch_proxy,3144,0.1151
+text_compound,face_smile,1056,-0.0789
+audio_log_rms,face_smile,998,-0.0445
+audio_pitch_proxy,face_jaw_open,922,0.0895

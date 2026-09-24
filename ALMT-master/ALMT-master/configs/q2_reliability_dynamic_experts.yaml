@@ -1,0 +1,29 @@
+# 控制实验：按样本融合文本专家与三模态专家的类别预测。
+base:
+  project_name: q2_text_anchor_dynamic_experts
+  seed: 42
+  bert_lr: 0.000005
+  other_lr: 0.0001
+  weight_decay: 0.05
+  batch_size: 4
+  accumulation_steps: 4
+  n_epochs: 40
+  patience: 10
+  amp: true
+  num_workers: 0
+
+dataset:
+  dataPath: 'D:/第二十三届中国研究生数学建模竞赛 - 中文题目/中文题目/E题/E题数据/E题数据/附件2-数据集特征文件/aligned_50.pkl'
+
+task:
+  neutral_threshold: 0.2
+  score_loss_weight: 0.25
+  label_smoothing: 0.05
+  decision_aux_loss_weight: 0.2
+
+model:
+  bert_pretrained: 'C:/Users/wwh/Documents/ChatGPT/数学建模/e_problem1/bert_model'
+  freeze_bert_layers: 9
+  hidden_dim: 128
+  dropout: 0.35
+  decision_fusion: true

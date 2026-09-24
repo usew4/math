@@ -1,0 +1,70 @@
+[
+  {
+    "epoch": 1,
+    "train": {
+      "ce": 1.2523257732391357,
+      "huber": 0.6311527490615845,
+      "neutral_bce": 0.0,
+      "expert_ce": 0.0,
+      "combined": 1.4101139307022095
+    },
+    "valid": {
+      "class_head": {
+        "accuracy": 0.25,
+        "macro_f1": 0.2222222222222222,
+        "recall": {
+          "Negative": 0.0,
+          "Neutral": 0.0,
+          "Positive": 0.5
+        },
+        "confusion": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ]
+      },
+      "score_rule": {
+        "accuracy": 0.75,
+        "macro_f1": 0.5555555555555555,
+        "mae": 0.6751302480697632,
+        "pearson": 0.6085769315796171,
+        "recall": {
+          "Negative": 0.0,
+          "Neutral": 0.5,
+          "Positive": 1.0
+        },
+        "confusion": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ]
+        ],
+        "threshold": 0.2,
+        "oracle_threshold_accuracy": 1.0
+      }
+    }
+  }
+]

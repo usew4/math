@@ -1,0 +1,36 @@
+[
+  {
+    "epoch": 1,
+    "train_mse": 1.0989995002746582,
+    "valid": {
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "mae": 1.9348958730697632,
+      "pearson": -0.09782320061260637,
+      "recall": {
+        "Negative": 0.0,
+        "Neutral": 0.0,
+        "Positive": 0.0
+      },
+      "confusion": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "threshold": 0.2,
+      "oracle_threshold_accuracy": 1.0
+    }
+  }
+]

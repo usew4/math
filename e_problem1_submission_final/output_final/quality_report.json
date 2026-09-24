@@ -1,0 +1,16 @@
+{
+  "samples": 100,
+  "word_tokens": 1932,
+  "word_methods": {
+    "pocketsphinx_forced": 1659,
+    "oov_or_partial_interpolation": 31,
+    "vad_orthographic_fallback": 242
+  },
+  "clips_with_any_forced_words": 85,
+  "clips_fully_forced": 68,
+  "sampled_video_frames": 1570,
+  "frames_with_mp_face": 1284,
+  "clips_with_any_mp_face": 87,
+  "mean_mp_face_coverage": 0.765637,
+  "feature_bytes": 858326
+}

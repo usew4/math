@@ -1,0 +1,19 @@
+# Python caches and local dependencies
+__pycache__/
+*.py[cod]
+.deps/
+.venv/
+venv/
+
+# Local editor and environment settings
+.vscode/
+.env
+.env.*
+
+# Generated model weights, feature arrays, and archives
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.pkl
+*.zip

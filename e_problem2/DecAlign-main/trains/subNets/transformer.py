@@ -1,0 +1,188 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import math
+
+class TransformerEncoder(nn.Module):
+    def __init__(self, embed_dim, num_heads, layers, attn_dropout=0.0, relu_dropout=0.0, res_dropout=0.0, embed_dropout=0.0, attn_mask=False):
+        super(TransformerEncoder, self).__init__()
+        self.embed_dim = embed_dim
+        self.embed_scale = math.sqrt(embed_dim)
+        self.embed_dropout = nn.Dropout(embed_dropout)
+        self.attn_mask = attn_mask
+        
+        self.layers = nn.ModuleList([
+            TransformerEncoderLayer(embed_dim, num_heads, attn_dropout, relu_dropout, res_dropout)
+            for _ in range(layers)
+        ])
+        
+    def forward(self, x_in, x_in_k=None, x_in_v=None, key_padding_mask=None):
+        """
+        Args:
+            x_in (FloatTensor): embedded inputs of shape `(src_len, batch, embed_dim)`
+            x_in_k (FloatTensor): embedded inputs of shape `(src_len, batch, embed_dim)` for key
+            x_in_v (FloatTensor): embedded inputs of shape `(src_len, batch, embed_dim)` for value
+        """
+        has_cross_inputs = x_in_k is not None and x_in_v is not None
+        x = self.embed_scale * x_in
+        x = self.embed_dropout(x)
+        
+        if has_cross_inputs:
+            x_k = self.embed_scale * x_in_k
+            x_v = self.embed_scale * x_in_v
+            x_k = self.embed_dropout(x_k)
+            x_v = self.embed_dropout(x_v)
+        else:
+            x_k = x_v = x
+        
+        # The triangular mask is only meaningful for self-attention. Cross-modal
+        # attention can have different source/target lengths, so do not apply it.
+        attn_mask = None
+        if self.attn_mask and not has_cross_inputs:
+            src_len = x.size(0)
+            attn_mask = torch.triu(torch.ones(src_len, src_len), diagonal=1).bool()
+            attn_mask = attn_mask.to(x.device)
+        
+        # Apply transformer layers
+        for layer in self.layers:
+            if has_cross_inputs:
+                x = layer(x, x_k, x_v, attn_mask, key_padding_mask)
+            else:
+                x = layer(x, None, None, attn_mask, key_padding_mask)
+        
+        return x
+
+class TransformerEncoderLayer(nn.Module):
+    def __init__(self, embed_dim, num_heads, attn_dropout=0.0, relu_dropout=0.0, res_dropout=0.0):
+        super(TransformerEncoderLayer, self).__init__()
+        self.embed_dim = embed_dim
+        self.num_heads = num_heads
+        
+        self.self_attn = MultiheadAttention(embed_dim, num_heads, attn_dropout=attn_dropout)
+        self.attn_layer_norm = nn.LayerNorm(embed_dim)
+        
+        self.fc1 = nn.Linear(embed_dim, embed_dim * 4)
+        self.fc2 = nn.Linear(embed_dim * 4, embed_dim)
+        self.final_layer_norm = nn.LayerNorm(embed_dim)
+        
+        self.relu_dropout = nn.Dropout(relu_dropout)
+        self.res_dropout = nn.Dropout(res_dropout)
+        
+    def forward(self, x, x_k=None, x_v=None, attn_mask=None, key_padding_mask=None):
+        """
+        Args:
+            x: input to the layer of shape `(seq_len, batch, embed_dim)`
+            x_k: key input shape `(seq_len, batch, embed_dim)`
+            x_v: value input shape `(seq_len, batch, embed_dim)`
+            attn_mask: attention mask of shape `(seq_len, seq_len)`
+        """
+        residual = x
+        x, _ = self.self_attn(query=x, key=x_k if x_k is not None else x, 
+                             value=x_v if x_v is not None else x, attn_mask=attn_mask,
+                             key_padding_mask=key_padding_mask)
+        x = self.res_dropout(x)
+        x = residual + x
+        x = self.attn_layer_norm(x)
+        
+        residual = x
+        x = self.fc1(x)
+        x = F.relu(x)
+        x = self.relu_dropout(x)
+        x = self.fc2(x)
+        x = self.res_dropout(x)
+        x = residual + x
+        x = self.final_layer_norm(x)
+        
+        return x
+
+class MultiheadAttention(nn.Module):
+    def __init__(self, embed_dim, num_heads, attn_dropout=0.0, bias=True):
+        super(MultiheadAttention, self).__init__()
+        self.embed_dim = embed_dim
+        self.num_heads = num_heads
+        self.attn_dropout = nn.Dropout(attn_dropout)
+        
+        assert embed_dim % num_heads == 0
+        self.head_dim = embed_dim // num_heads
+        
+        self.in_proj_weight = nn.Parameter(torch.empty(3 * embed_dim, embed_dim))
+        if bias:
+            self.in_proj_bias = nn.Parameter(torch.empty(3 * embed_dim))
+        else:
+            self.register_parameter('in_proj_bias', None)
+            
+        self.out_proj = nn.Linear(embed_dim, embed_dim, bias=bias)
+        
+        self._reset_parameters()
+        
+    def _reset_parameters(self):
+        nn.init.xavier_uniform_(self.in_proj_weight)
+        if self.in_proj_bias is not None:
+            nn.init.constant_(self.in_proj_bias, 0.0)
+            nn.init.constant_(self.out_proj.bias, 0.0)
+            
+    def forward(self, query, key, value, attn_mask=None, key_padding_mask=None):
+        """
+        Args:
+            query: `(L, N, E)` where L is the target sequence length, N is the batch size, E is embedding dim
+            key: `(S, N, E)`, where S is the source sequence length
+            value: `(S, N, E)`
+            attn_mask: `(L, S)` where L is target length, S is source length
+        """
+        return self._multi_head_attention_forward(query, key, value, attn_mask, key_padding_mask)
+        
+    def _multi_head_attention_forward(self, query, key, value, attn_mask=None, key_padding_mask=None):
+        tgt_len, bsz, embed_dim = query.size()
+        src_len = key.size(0)
+        
+        # Linear projections. Q comes from the target sequence; K/V come from
+        # the source sequence, which enables actual cross-modal attention.
+        q_weight = self.in_proj_weight[:embed_dim]
+        k_weight = self.in_proj_weight[embed_dim:2 * embed_dim]
+        v_weight = self.in_proj_weight[2 * embed_dim:]
+        if self.in_proj_bias is None:
+            q_bias = k_bias = v_bias = None
+        else:
+            q_bias, k_bias, v_bias = self.in_proj_bias.chunk(3)
+
+        q = F.linear(query, q_weight, q_bias)
+        k = F.linear(key, k_weight, k_bias)
+        v = F.linear(value, v_weight, v_bias)
+        
+        # Reshape for multi-head attention
+        q = q.contiguous().view(tgt_len, bsz * self.num_heads, self.head_dim).transpose(0, 1)
+        k = k.contiguous().view(src_len, bsz * self.num_heads, self.head_dim).transpose(0, 1)
+        v = v.contiguous().view(src_len, bsz * self.num_heads, self.head_dim).transpose(0, 1)
+        
+        # Scaled dot-product attention
+        attn_weights = torch.bmm(q, k.transpose(1, 2))
+        attn_weights = attn_weights / math.sqrt(self.head_dim)
+        
+        if attn_mask is not None:
+            attn_mask = attn_mask.unsqueeze(0).expand(bsz * self.num_heads, -1, -1)
+            attn_weights = attn_weights.masked_fill(attn_mask, float('-inf'))
+        empty_source = None
+        if key_padding_mask is not None:
+            key_padding_mask = key_padding_mask.bool()
+            # An entirely absent modality needs one inert key to keep softmax finite.
+            empty_source = key_padding_mask.all(dim=1)
+            if empty_source.any():
+                key_padding_mask = key_padding_mask.clone()
+                key_padding_mask[empty_source, 0] = False
+            expanded = key_padding_mask[:, None, None, :].expand(
+                bsz, self.num_heads, tgt_len, src_len
+            ).reshape(bsz * self.num_heads, tgt_len, src_len)
+            attn_weights = attn_weights.masked_fill(expanded, float('-inf'))
+            
+        attn_weights = F.softmax(attn_weights, dim=-1)
+        attn_weights = self.attn_dropout(attn_weights)
+        
+        attn = torch.bmm(attn_weights, v)
+        
+        # Reshape and project
+        attn = attn.transpose(0, 1).contiguous().view(tgt_len, bsz, embed_dim)
+        attn = self.out_proj(attn)
+        if empty_source is not None:
+            attn = attn * (~empty_source)[None, :, None]
+        
+        return attn, attn_weights

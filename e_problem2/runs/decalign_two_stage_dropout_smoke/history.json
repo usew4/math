@@ -1,0 +1,14 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 1.6584874391555786,
+    "valid_clean": {
+      "accuracy": 0.125,
+      "macro_f1": 0.07407407407407407,
+      "mae": 1.1630730628967285,
+      "pearson": -0.3996919904745448
+    },
+    "valid_missing_half": {},
+    "selection_score": 0.015920420929237643
+  }
+]

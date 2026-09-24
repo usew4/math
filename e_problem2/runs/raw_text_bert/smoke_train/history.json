@@ -1,0 +1,34 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 1.2349286079406738,
+    "valid_clean": {
+      "accuracy": 0.5,
+      "macro_f1": 0.2222222222222222,
+      "mae": 1.0966171026229858,
+      "pearson": -1.0
+    },
+    "valid_missing_half": {
+      "text": {
+        "accuracy": 0.5,
+        "macro_f1": 0.2222222222222222,
+        "mae": 1.1079782247543335,
+        "pearson": -1.0
+      },
+      "audio": {
+        "accuracy": 0.5,
+        "macro_f1": 0.2222222222222222,
+        "mae": 1.0965992212295532,
+        "pearson": -1.0
+      },
+      "vision": {
+        "accuracy": 0.5,
+        "macro_f1": 0.2222222222222222,
+        "mae": 1.0938621759414673,
+        "pearson": -1.0
+      }
+    },
+    "valid_text_fully_missing": null,
+    "selection_score": 0.11241737339231703
+  }
+]

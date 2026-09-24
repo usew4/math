@@ -1,0 +1,62 @@
+{
+  "checkpoint": "C:\\Users\\wwh\\Desktop\\math\\ALMT-master\\ALMT-master\\runs\\q2_text_anchor_word_mag_audio_mamba\\best.pt",
+  "checkpoint_epoch": 13,
+  "test": {
+    "class_head": {
+      "accuracy": 0.672627235213205,
+      "macro_f1": 0.6369709725793072,
+      "recall": {
+        "Negative": 0.7632850241545893,
+        "Neutral": 0.44936708860759494,
+        "Positive": 0.7182320441988951
+      },
+      "confusion": [
+        [
+          158,
+          24,
+          25
+        ],
+        [
+          38,
+          71,
+          49
+        ],
+        [
+          42,
+          60,
+          260
+        ]
+      ]
+    },
+    "score_rule": {
+      "accuracy": 0.671251719394773,
+      "macro_f1": 0.5924354219819661,
+      "mae": 0.6604151129722595,
+      "pearson": 0.6815277506641605,
+      "recall": {
+        "Negative": 0.7777777777777778,
+        "Neutral": 0.23417721518987342,
+        "Positive": 0.8011049723756906
+      },
+      "confusion": [
+        [
+          161,
+          16,
+          30
+        ],
+        [
+          50,
+          37,
+          71
+        ],
+        [
+          42,
+          30,
+          290
+        ]
+      ],
+      "threshold": 0.2,
+      "oracle_threshold_accuracy": 1.0
+    }
+  }
+}

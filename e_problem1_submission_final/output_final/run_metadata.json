@@ -1,0 +1,12 @@
+{
+  "source_zip": "D:\\第二十三届中国研究生数学建模竞赛 - 中文题目\\中文题目\\E题\\E题数据.zip",
+  "baseline": "C:\\Users\\wwh\\Documents\\ChatGPT\\数学建模\\e_problem1\\output",
+  "samples": 100,
+  "grid_steps": 50,
+  "word_timing": "PocketSphinx 5.0.4 forced alignment with matched partial segments; VAD orthographic fallback on 15 clips",
+  "visual": "12 baseline descriptors + 1 MediaPipe face detection rate + 52 face blendshapes",
+  "text": "32 signed character trigram hash + 4 context VADER scores + count",
+  "audio": "13 MFCC + log RMS + ZCR + spectral centroid + pitch proxy",
+  "face_model": "MediaPipe Face Landmarker float16/1; mediapipe 0.10.14; sampled at 2 fps",
+  "face_feature_dim": 65
+}

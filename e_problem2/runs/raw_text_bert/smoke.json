@@ -1,0 +1,37 @@
+{
+  "source": "D:\\第二十三届中国研究生数学建模竞赛 - 中文题目\\中文题目\\E题\\E题数据\\E题数据\\附件2-数据集特征文件\\unaligned_50.pkl",
+  "model_dir": "C:\\Users\\wwh\\Documents\\ChatGPT\\数学建模\\e_problem1\\bert_model",
+  "device": "cuda",
+  "bert_frozen": true,
+  "batch_size": 2,
+  "limit": 2,
+  "splits": {
+    "train": {
+      "samples": 2,
+      "token_ids_exact_match": 2,
+      "shape": [
+        2,
+        50,
+        768
+      ]
+    },
+    "valid": {
+      "samples": 2,
+      "token_ids_exact_match": 2,
+      "shape": [
+        2,
+        50,
+        768
+      ]
+    },
+    "test": {
+      "samples": 2,
+      "token_ids_exact_match": 2,
+      "shape": [
+        2,
+        50,
+        768
+      ]
+    }
+  }
+}

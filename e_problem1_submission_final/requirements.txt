@@ -1,0 +1,16 @@
+numpy==1.26.4
+scipy==1.13.1
+openpyxl==3.1.2
+imageio-ffmpeg==0.6.0
+vaderSentiment==3.3.2
+matplotlib==3.8.4
+scikit-image==0.23.2
+Pillow==10.3.0
+pocketsphinx==5.0.4
+mediapipe==0.10.14
+absl-py==2.5.0
+protobuf==4.25.8
+opencv-contrib-python==4.10.0.84
+sentencepiece==0.2.2
+sounddevice==0.5.6
+msvc-runtime==14.44.35112
