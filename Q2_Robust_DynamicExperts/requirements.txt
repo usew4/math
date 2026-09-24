@@ -1,0 +1,6 @@
+torch>=2.4
+numpy
+PyYAML
+matplotlib
+# transformers/tokenizers/regex/huggingface_hub are also bundled in .deps.
+transformers==4.49.0

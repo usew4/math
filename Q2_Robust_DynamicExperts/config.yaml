@@ -1,0 +1,9 @@
+data: 'D:/第二十三届中国研究生数学建模竞赛 - 中文题目/中文题目/E题/E题数据/E题数据/附件2-数据集特征文件/aligned_50.pkl'
+attachment3: 'D:/第二十三届中国研究生数学建模竞赛 - 中文题目/中文题目/E题/E题数据/E题数据/附件3-模态缺失特征样本/对齐版本'
+training:
+  eval_batch_size: 16
+  amp: true
+missing:
+  rates: [0.1, 0.3, 0.5]
+validation:
+  suite_seeds: [2026, 2027, 2028]

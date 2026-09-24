@@ -1,0 +1,10 @@
+# Local dependencies, editor settings, and generated output
+.deps/
+.vscode/
+.archive/
+__pycache__/
+results/
+
+# Model weights stay local
+*.pt
+*.safetensors

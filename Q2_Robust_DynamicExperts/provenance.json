@@ -1,0 +1,7 @@
+{
+  "source_model": "C:\\Users\\wwh\\Desktop\\math\\ALMT-master\\ALMT-master\\runs\\q2_text_anchor_dynamic_experts\\best.pt",
+  "sha256": "eec2ab7de6002a46fe4819a2e780e39496dfa6c3214ce22ceeb0fd49aa75edd4",
+  "source_code": "C:\\Users\\wwh\\Desktop\\math\\ALMT-master\\ALMT-master",
+  "source_bert": "C:\\Users\\wwh\\Documents\\ChatGPT\\\u6570\u5b66\u5efa\u6a21\\e_problem1\\bert_model",
+  "note": "Standalone code/dependencies/BERT/checkpoint copy. Competition data stays on D:."
+}
